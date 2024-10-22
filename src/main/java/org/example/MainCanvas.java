@@ -2,14 +2,35 @@ package org.example;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.List;
 
-public class MainCanvas extends JPanel {
+public class MainCanvas extends JPanel implements Interactable{
     private final MainWindow controller;
     private long lastFrameTime;
-    MainCanvas(MainWindow controller) {
+    private List<Interactable> interactables = new ArrayList<>();
+
+
+
+   public MainCanvas(MainWindow controller) {
             this.controller = controller;
             lastFrameTime = System.nanoTime();
+
+
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                Ball ball = new Ball();
+                controller.addInteractable(ball);  // Добавьте мяч через контроллер
+                repaint();
+
+            }
+        });
     }
+
+
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -31,5 +52,9 @@ public class MainCanvas extends JPanel {
     public int getBottom() {return getHeight() - 1;}
 
 
+    @Override
+    public void update(MainCanvas canvas, float deltaTime) {}
 
+    @Override
+    public void render(MainCanvas canvas, Graphics g) {}
 }

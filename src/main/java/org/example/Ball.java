@@ -3,19 +3,21 @@ package org.example;
 import java.awt.*;
 import java.util.Random;
 
-public class Ball extends Sprite{
+public class Ball extends Sprite implements  Interactable{
     private static Random rnd = new Random();
     private final Color color;
     private float vX;
     private float vY;
 
     Ball() {
+        super();
         halfHeight = 20 + (float) (Math.random() * 50f);
         halfWidth = halfHeight;
         color = new Color(rnd.nextInt());
         vX = 100f + (float) (Math.random() * 200f);
         vY = 100f + (float) (Math.random() * 200f);
     }
+
 
     @Override
     public void render(MainCanvas canvas, Graphics g) {
@@ -45,4 +47,5 @@ public class Ball extends Sprite{
             vY = -vY;
         }
     }
+
 }
